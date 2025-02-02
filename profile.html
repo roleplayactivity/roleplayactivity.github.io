@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header>
+    <a href="#discord">Discord</a>
+    <a href="#rules">Pravidla</a>
+    <a href="#whitelist">Whitelist</a>
+  </header>
+
+  <div class="content">
+    <h1>Tvůj profil</h1>
+    
+    <!-- Informace o uživatelském účtu -->
+    <div id="user-info">
+      <img id="user-avatar" src="" alt="Avatar" width="100">
+      <h2>Vítej, <span id="username"></span></h2>
+      <p>Discord Tag: <span id="discord-tag"></span></p>
+      
+      <h3>Status Whitelistu:</h3>
+      <p id="whitelist-status">Načítám...</p>
+      
+      <a id="whitelist-request-btn" href="whitelist-form.html" class="btn">Vyplnit žádost o Whitelist</a>
+
+      <!-- Odkaz pro připojení k Discord serveru, pokud uživatel není připojený -->
+      <p id="discord-link" style="display:none;">
+        Pro vyplnění formuláře, musíš být na discordu: <a href="https://discord.gg/V5Cr94MMsa" target="_blank">ZDE</a>
+      </p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Roleplay Activity. Všechna práva vyhrazena.</p>
+  </footer>
+
+  <script src="script.js"></script>
+
+  <script>
+    // Funkce pro zobrazení informací o uživatelském účtu
+    window.onload = function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const username = urlParams.get('username');
+      const avatar = urlParams.get('avatar');
+      const discordTag = urlParams.get('discordTag');
+      const userId = urlParams.get('user_id');
+      
+      // Zobrazení údajů o uživatelském účtu
+      document.getElementById('username').textContent = username;
+      document.getElementById('user-avatar').src = `https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`;
+      document.getElementById('discord-tag').textContent = discordTag;
+
+      // Získání statusu Whitelistu na základě role uživatele
+      getWhitelistStatus(userId);
+    }
+
+    // Funkce pro zjištění, jestli je uživatel na správném Discord serveru a zobrazení statusu Whitelistu
+    function getWhitelistStatus(userId) {
+      // Tady bys měl mít volání na backend nebo Discord API, kde získáš roli nebo status uživatele.
+      // Pro tuto ukázku používáme jednoduché podmínky.
+      
+      const isOnDiscordServer = true; // Tento boolean můžeš měnit podle připojení uživatele na serveru.
+      const whitelistStatus = 'Whitelist'; // Můžeš nastavit status na základě role nebo jiného stavu.
+
+      // Zobrazení statusu Whitelistu
+      document.getElementById('whitelist-status').textContent = whitelistStatus;
+
+      // Zobrazení odkazu na Discord server, pokud uživatel není na správném serveru
+      if (!isOnDiscordServer) {
+        document.getElementById('discord-link').style.display = 'block';
+      }
+    }
+  </script>
+
+</body>
+</html>
