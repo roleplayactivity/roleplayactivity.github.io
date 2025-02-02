@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roleplay Activity</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header>
+    <a href="#discord">Discord</a>
+    <a href="#rules">Pravidla</a>
+    <a href="#whitelist">Whitelist</a>
+  </header>
+
+  <div class="content">
+    <h1>Vítejte na Roleplay Activity</h1>
+    <p>Začni svou roli na našem FiveM serveru!</p>
+    
+    <!-- Odkazy na externí stránky -->
+    <a href="https://discord.gg/V5Cr94MMsa" class="btn">Připoj se k Discordu</a>
+    <a href="https://www.example.com/rules" class="btn">Přečti si pravidla</a>
+    <a href="whitelist-form.html" class="btn">Žádost o Whitelist</a>
+
+    <!-- Tlačítko pro přihlášení přes Discord (OAuth2) -->
+    <a href="https://https://discord-auth-bot.vercel.app/login" class="btn login-btn" id="discord-login">Přihlásit se přes Discord</a>
+  </div>
+
+  <!-- Sekce pro zobrazení informací po přihlášení -->
+  <div id="user-info" style="display: none;">
+    <div class="profile">
+      <img id="profile-pic" src="" alt="Profilový obrázek" class="profile-img">
+      <span id="username"></span>
+      <button id="profile-link" onclick="goToProfile()">Přejít na profil</button>
+    </div>
+    <div id="whitelist-status">
+      <p>Status Whitelistu: <span id="whitelist-status-text"></span></p>
+      <p>Discord tag: <span id="discord-tag"></span></p>
+      <button id="apply-whitelist" onclick="redirectToWhitelistForm()">Vyplnit žádost o Whitelist</button>
+    </div>
+    <div id="discord-server-link">
+      <!-- Odkaz pro připojení na Discord server -->
+      <p id="discord-link-text"></p>
+    </div>
+  </div>
+
+  <!-- Popup okno pro úspěšné přihlášení -->
+  <div id="success-popup" class="popup">
+    <div class="popup-content">
+      <span id="close-popup" class="close">&times;</span>
+      <h2>Úspěšně přihlášeno!</h2>
+      <p>Vítej, <span id="username"></span>!</p>
+      <img id="user-avatar" src="" alt="Avatar" width="100">
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Roleplay Activity. Všechna práva vyhrazena.</p>
+  </footer>
+
+  <script src="script.js"></script>
+
+  <script>
+    let userLoggedIn = false; // Simulace přihlášení
+
+    function loginWithDiscord() {
+      // Funkce pro přihlášení přes Discord
+      // Zde můžeš použít nějaký API pro přihlášení (např. OAuth2 s Discordem)
+      userLoggedIn = true; // Změníme stav na přihlášený
+
+      // Příklad, jak načíst údaje po přihlášení
+      if (userLoggedIn) {
+        document.getElementById('discord-login').style.display = 'none';
+        document.getElementById('user-info').style.display = 'block';
+
+        // Nastavení údajů (tyto údaje by měly být získané z Discord API)
+        document.getElementById('profile-pic').src = "https://example.com/profile.jpg"; // Profilový obrázek
+        document.getElementById('username').textContent = "Uživatel#1234"; // Uživatelské jméno
+        document.getElementById('discord-tag').textContent = "Uživatel#1234"; // Discord tag
+        
+        // Status whitelistu
+        let userRole = "Whitelist"; // Toto by mělo být získáno na základě role uživatele
+        document.getElementById('whitelist-status-text').textContent = userRole;
+
+        // Kontrola připojení k serveru
+        let isOnDiscordServer = true; // Simulace kontroly připojení
+        if (!isOnDiscordServer) {
+          document.getElementById('discord-link-text').innerHTML = '<a href="https://discord.gg/V5Cr94MMsa" target="_blank">Pro vyplnění formuláře, musíš být na discordu ZDE</a>';
+        } else {
+          document.getElementById('discord-link-text').innerHTML = ''; // Pokud je na serveru, neukazuje se odkaz
+        }
+      }
+    }
+
+    // Funkce pro zobrazení popupu po přihlášení
+    window.onload = function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const status = urlParams.get('status');
+      const username = urlParams.get('username');
+      const avatar = urlParams.get('avatar');
+      
+      if (status === 'success') {
+        document.getElementById('username').textContent = username;
+        document.getElementById('user-avatar').src = `https://cdn.discordapp.com/avatars/${urlParams.get('user_id')}/${avatar}.png`;
+        document.getElementById('success-popup').style.display = 'block';
+      }
+    }
+
+    // Uzavření popupu
+    document.getElementById('close-popup').onclick = function() {
+      document.getElementById('success-popup').style.display = 'none';
+    }
+
+    function goToProfile() {
+      // Funkce pro přesměrování na profilovou stránku
+      window.location.href = "/profil.html"; // Příklad URL pro profil
+    }
+
+    function redirectToWhitelistForm() {
+      // Funkce pro přesměrování na stránku s formulářem
+      window.location.href = "/whitelist-form.html"; // Příklad URL pro formulář
+    }
+  </script>
+
+</body>
+</html>
